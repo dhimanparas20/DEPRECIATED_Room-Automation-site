@@ -1,0 +1,72 @@
+body {
+  background-image: url('/static/wall.jpg');
+  background-position: center;
+  background-size: cover;
+  }
+
+html, body {
+display: flex;
+justify-content: center;
+height: 100%;
+}
+body, div, h1, form, input, p { 
+padding: 0;
+margin: 0;
+outline: none;
+font-family: Roboto, Arial, sans-serif;
+font-size: 16px;
+color: #666;
+}
+h1 {
+padding: 10px 0;
+font-size: 32px;
+font-weight: 300;
+text-align: center;
+}
+h2 {
+padding: 10px 0;
+font-size: 32px;
+font-weight: 300;
+text-align: center;
+}
+p {
+font-size: 12px;
+}
+hr {
+position: relative;
+top: 0px;
+height: 3px;
+margin-bottom: 10px;
+color: black;
+opacity: 1;
+}
+.main-block {
+width: 450px;
+min-height: 350px;
+padding: 10px 0;
+margin: auto;
+border-radius: 30px; 
+border: solid 3px #ccc;
+box-shadow: 10px 20px 5px rgba(0,0,0,.31); 
+background: transparent;
+backdrop-filter: blur(4px);
+}
+.btn-block {
+margin-top: 10px;
+text-align: center;
+}
+button {
+width: 20%;
+padding: 5px 0;
+margin: 10px auto 0;
+border-radius: 8px; 
+border: solid;
+border-color: black;
+background: #26a9e0; 
+font-size: 16px;
+font-weight: 500;
+color: white;
+}
+button:hover {
+background: #26a9e0;
+}
