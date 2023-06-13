@@ -75,4 +75,4 @@ api.add_resource(logout, '/logout/',methods=['GET', 'POST'])
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
