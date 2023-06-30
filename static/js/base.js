@@ -141,7 +141,7 @@ function refreshTime() {
             }
       }
   )}
-  setInterval(getvalue, 1500); 
+  setInterval(getvalue, 1000); 
 
   function isResponseEqual(response1, response2) {
     // Return true if responses are equal, false otherwise
