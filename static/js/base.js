@@ -8,6 +8,7 @@ function refreshTime() {
   setInterval(refreshTime, 1000);
 
   function myFunc(val,div) {
+    if (navigator.onLine===true){
     var x = document.getElementById(div);
     //var x = document.querySelectorAll('[id=myDIV]');
     if (x.innerHTML === "OFF") {
@@ -17,6 +18,7 @@ function refreshTime() {
       trigger(0,val)
       x.innerHTML = "OFF";
     }
+  }
   }
 
   function trigger(value,pin) {  
@@ -33,7 +35,12 @@ function refreshTime() {
   var v2state;
   var v3state;
   var v4state;
-  function getvalue() {  
+
+  function getvalue() { 
+    //console.log(trgr); 
+    var online = navigator.onLine;
+    if (online) {
+      //console.log("online");
       $.ajax({
           url: "/getval",
           method: "GET",
@@ -81,7 +88,7 @@ function refreshTime() {
                       var color = document.getElementById("color1");
                       x.innerHTML = "ON"; 
                       color.style.backgroundColor = "red"; 
-                      v2state = 1;               
+                      v2state = 1;
                       }
                     else {
                       var x = document.getElementById("myDIV1");
@@ -89,15 +96,15 @@ function refreshTime() {
                       x.innerHTML = "OFF";
                       color.style.backgroundColor = "#26a9e0"; 
                       v2state = 0;
-                    } 
-                    
+                    }
+
                     if(response.V3==1){
                       var x = document.getElementById("myDIV2");
                       var color = document.getElementById("color2");
                       x.innerHTML = "ON";
                       color.style.backgroundColor = "red";
                       v3state = 1;
-                      
+
                       }
                     else {
                       var x = document.getElementById("myDIV2");
@@ -105,14 +112,14 @@ function refreshTime() {
                       x.innerHTML = "OFF";
                       color.style.backgroundColor = "#26a9e0"; 
                       v3state = 0;
-                    } 
+                    }
                     if(response.V4==1){
                       var x = document.getElementById("myDIV3");
                       var color = document.getElementById("color3");
                       x.innerHTML = "ON";
                       color.style.backgroundColor = "red";
                       v4state = 1;
-                      
+
                       }
                     else {
                       var x = document.getElementById("myDIV3");
@@ -120,7 +127,7 @@ function refreshTime() {
                       x.innerHTML = "OFF";
                       color.style.backgroundColor = "#26a9e0"; 
                       v4state = 0;
-                    }  
+                    }
                     previousResponse = response; // Update previous response
                 }
              }
@@ -133,15 +140,34 @@ function refreshTime() {
               var color2 = document.getElementById("color1");
               var color3 = document.getElementById("color2");
               var color4 = document.getElementById("color3");
-              color1.style.backgroundColor = "black"; 
-              color2.style.backgroundColor = "black"; 
+              color1.style.backgroundColor = "black";
+              color2.style.backgroundColor = "black";
               color3.style.backgroundColor = "black";
-              color4.style.backgroundColor = "black";            
+              color4.style.backgroundColor = "black";
              }
             }
       }
-  )}
-  setInterval(getvalue, 500); 
+
+  )
+    }
+    else {
+      //console.log("offline");
+      trgr=true;
+      var message = document.getElementById("message");
+      message.innerHTML = "Disconnected!";
+      message.style.color = "red";
+      var color1 = document.getElementById("color");
+      var color2 = document.getElementById("color1");
+      var color3 = document.getElementById("color2");
+      var color4 = document.getElementById("color3");
+      color1.style.backgroundColor = "black";
+      color2.style.backgroundColor = "black";
+      color3.style.backgroundColor = "black";
+      color4.style.backgroundColor = "black";
+    }
+   }
+  setInterval(getvalue, 700);
+
 
   function isResponseEqual(response1, response2) {
     // Return true if responses are equal, false otherwise
@@ -152,16 +178,16 @@ function refreshTime() {
   function getcolor(state,pin){
     var col;
     if (pin==="V1"){
-      col = "color";  
+      col = "color";
     }
     else if (pin==="V2"){
-      col = "color1";  
+      col = "color1";
     }
     else if (pin==="V3"){
-      col = "color2";  
+      col = "color2";
     }
     else if (pin==="V4"){
-      col = "color3";  
+      col = "color3"
     }
     if (state===1){
       var color = document.getElementById(col);
@@ -172,6 +198,3 @@ function refreshTime() {
       color.style.backgroundColor = "#26a9e0";
     }
   }
-
-
-  
