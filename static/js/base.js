@@ -118,10 +118,10 @@ function handlePageReload() {
       v2state = response.V2;
       v3state = response.V3;
       v4state = response.V4;
-      console.log("Delay function activated;");
+      //console.log("Delay function activated;");
       setTimeout(delayedFunction, 5000);
       function delayedFunction() {
-        console.log("Delay function Finished;");
+        //console.log("Delay function Finished;");
         trigger(v1state,"V1");
         trigger(v2state,"V2");
         trigger(v3state,"V3");
