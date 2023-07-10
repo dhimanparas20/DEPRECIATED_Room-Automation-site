@@ -118,11 +118,15 @@ function handlePageReload() {
       v2state = response.V2;
       v3state = response.V3;
       v4state = response.V4;
-
-      trigger(v1state,"V1");
-      trigger(v2state,"V2");
-      trigger(v3state,"V3");
-      trigger(v4state,"V4");
+      console.log("Delay function activated;");
+      setTimeout(delayedFunction, 5000);
+      function delayedFunction() {
+        console.log("Delay function Finished;");
+        trigger(v1state,"V1");
+        trigger(v2state,"V2");
+        trigger(v3state,"V3");
+        trigger(v4state,"V4");
+      }
       trgr=false;
       return;
     }
@@ -158,7 +162,6 @@ function handlePageReload() {
     message.innerHTML = "Disonnected";
     message.style.color = "red";
     document.getElementById("switch1").disabled = true;
-    document.getElementById("switch1").backgroundColor = "black";
     document.getElementById("switch2").disabled = true;
     document.getElementById("switch3").disabled = true;
     document.getElementById("switch4").disabled = true;
