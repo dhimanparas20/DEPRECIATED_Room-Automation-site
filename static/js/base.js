@@ -59,7 +59,6 @@ function handleSwitchChange(event) {
   var switchElement = event.target;
   var switchLabelElement = switchElement.closest(".switch-container").querySelector(".switch-label");
     if (switchLabelElement && navigator.onLine ) {
-      var status;
       //var switchLabel = switchLabelElement.textContent;
       var switchName = switchElement.id;
       var pin = getpin(switchName);
@@ -127,7 +126,7 @@ function handlePageReload() {
       trgr=false;
       return;
     }
-
+    response = trigger2();
     if (!isResponseEqual(response, previousResponse)) {
       for (var i = 0; i < pins.length; i++) {
         var pin = pins[i];
@@ -150,7 +149,7 @@ function handlePageReload() {
       }
       previousResponse = response; // Update previous response
     }
-  } 
+  }
   else if (!navigator.onLine){
     //console.log("Offline ");
     //console.log(v1state,v2state,v3state,v4state);
