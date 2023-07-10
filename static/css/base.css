@@ -141,10 +141,10 @@ input:checked + .slider:before {
 
 .switch-label {
   margin-bottom: 5px;
-  color: black;
+  color: whitesmoke;
   font-size: large;
   backdrop-filter: blur(10px);
-  padding-right: 5px;
+  padding-right: 3px;
 
   
 }
