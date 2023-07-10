@@ -119,9 +119,15 @@ function handlePageReload() {
       v3state = response.V3;
       v4state = response.V4;
       //console.log("Delay function activated;");
-      setTimeout(delayedFunction, 10000);
+      var message = document.getElementById("message");
+        message.innerHTML = "Trigger Delay Starts...";
+        message.style.color = "lightblue";
+      setTimeout(delayedFunction, 15000);
       function delayedFunction() {
         //console.log("Delay function Finished;");
+        var message = document.getElementById("message");
+        message.innerHTML = "Triggering The Devices";
+        message.style.color = "lightblue";
         trigger(v1state,"V1");
         trigger(v2state,"V2");
         trigger(v3state,"V3");
