@@ -1,3 +1,18 @@
+//Global Variable Declaration
+var switches = document.querySelectorAll(".switch input");
+var message = document.getElementById("message");
+var pins = ["V1", "V2", "V3", "V4"];
+var previousResponse;
+var previousstate;
+var timeout = 10000
+var trgr = true;
+/*
+var v1state;
+var v2state;
+var v3state;
+var v4state;
+*/
+
 `use strict`;
 //Displays Time
 function refreshTime() {
@@ -8,6 +23,79 @@ function refreshTime() {
 }
 setInterval(refreshTime, 1000);
 
+// Function that auto runs after specfic interval of time
+function handlePageReload() {
+  //if (!isResponseEqual(navigator.onLine, previousResponse)) {
+    if (navigator.onLine){
+      if (!trgr){
+        message.innerHTML = "Connected";
+        message.style.color = "#21ed58";
+        }
+
+      document.getElementById("switch1").disabled = false;
+      document.getElementById("switch2").disabled = false;
+      document.getElementById("switch3").disabled = false;
+      document.getElementById("switch4").disabled = false;
+
+      //When light comes back bring back old state
+      if (trgr===true){
+        //console.log("Trigger called======================================");
+        message.innerHTML = "Restoring States..";
+        message.style.color = "#d0eb34";
+        sleepAndContinue();
+        async function sleepAndContinue() {
+          await sleep(timeout);
+          var response =  trigger2();
+          trigger(response.V1,"V1");
+          trigger(response.V2,"V2");
+          trigger(response.V3,"V3");
+          trigger(response.V4,"V4");
+          trgr=false;
+          message.innerHTML = "Connected";
+          message.style.color = "#21ed58";
+        }
+      }
+      
+      //Applies Any Changes Done on the States
+      response = trigger2();
+      if (!isResponseEqual(response, previousResponse)) {
+        for (var i = 0; i < pins.length; i++) {
+          var pin = pins[i];
+          switch (pin) {
+            case "V1":
+              updateElement(response, pin, "switch1");
+              break;
+            case "V2":
+              updateElement(response, pin, "switch2");
+              break;
+            case "V3":
+              updateElement(response, pin, "switch3");
+              break;
+            case "V4":
+              updateElement(response, pin, "switch4");
+              break;
+            default:
+              return;
+          }
+        }
+        previousResponse = response; // Update previous response
+      }
+    }
+    else if (!navigator.onLine){
+      //console.log("Offline ");
+      //console.log(v1state,v2state,v3state,v4state);
+      trgr=true;
+      message.innerHTML = "Disonnected";
+      message.style.color = "red";
+      document.getElementById("switch1").disabled = true;
+      document.getElementById("switch2").disabled = true;
+      document.getElementById("switch3").disabled = true;
+      document.getElementById("switch4").disabled = true;
+    }
+   // previousResponse = navigator.onLine;
+  //}
+}  
+setInterval(handlePageReload, 700);
 
 function trigger(value, pin) {
   fetch(`https://blr1.blynk.cloud/external/api/update?token=g2-VR83SfRVfmPIMoTQLX0nCrWbJQ9kA&${pin}=${value}`)
@@ -35,25 +123,11 @@ function trigger2() {
 }
 
 
-//Global Variable Declaration
-var pins = ["V1", "V2", "V3", "V4"];
-var previousResponse;
-var previousstate;
-var trgr = false;
-var v1state;
-var v2state;
-var v3state;
-var v4state;
-
 function isResponseEqual(response1, response2) {
   // Return true if responses are equal, false otherwise
   return JSON.stringify(response1) === JSON.stringify(response2);
 }
 
-//================================================
-//NEW CODE
-//================================================
-var switches = document.querySelectorAll(".switch input");
 
 function handleSwitchChange(event) {
   var switchElement = event.target;
@@ -97,84 +171,6 @@ function getpin(switchName){
   }
   return pin;
 }
-
-// Function that auto runs after specfic interval of time
-function handlePageReload() {
-  if (navigator.onLine){
-    var message = document.getElementById("message");
-    message.innerHTML = "Connected";
-    message.style.color = "greenyellow";
-
-    document.getElementById("switch1").disabled = false;
-    document.getElementById("switch2").disabled = false;
-    document.getElementById("switch3").disabled = false;
-    document.getElementById("switch4").disabled = false;
-
-    //When light comes back bring back old state
-    if (trgr===true){
-      //console.log("Trigger called======================================");
-      var response =  trigger2();
-      v1state = response.V1;
-      v2state = response.V2;
-      v3state = response.V3;
-      v4state = response.V4;
-      //console.log("Delay function activated;");
-      var message = document.getElementById("message");
-        message.innerHTML = "Trigger Delay Starts...";
-        message.style.color = "lightblue";
-      setTimeout(delayedFunction, 15000);
-      function delayedFunction() {
-        //console.log("Delay function Finished;");
-        var message = document.getElementById("message");
-        message.innerHTML = "Triggering The Devices";
-        message.style.color = "lightblue";
-        trigger(v1state,"V1");
-        trigger(v2state,"V2");
-        trigger(v3state,"V3");
-        trigger(v4state,"V4");
-      }
-      trgr=false;
-      return;
-    }
-    response = trigger2();
-    if (!isResponseEqual(response, previousResponse)) {
-      for (var i = 0; i < pins.length; i++) {
-        var pin = pins[i];
-        switch (pin) {
-          case "V1":
-            updateElement(response, pin, "switch1");
-            break;
-          case "V2":
-            updateElement(response, pin, "switch2");
-            break;
-          case "V3":
-            updateElement(response, pin, "switch3");
-            break;
-          case "V4":
-            updateElement(response, pin, "switch4");
-            break;
-          default:
-            return;
-        }
-      }
-      previousResponse = response; // Update previous response
-    }
-  }
-  else if (!navigator.onLine){
-    //console.log("Offline ");
-    //console.log(v1state,v2state,v3state,v4state);
-    trgr=true;
-    var message = document.getElementById("message");
-    message.innerHTML = "Disonnected";
-    message.style.color = "red";
-    document.getElementById("switch1").disabled = true;
-    document.getElementById("switch2").disabled = true;
-    document.getElementById("switch3").disabled = true;
-    document.getElementById("switch4").disabled = true;
-  }
-}
-
-setInterval(handlePageReload, 500);
 //handlePageReload();
 //window.addEventListener("beforeunload", handlePageReload);
 
@@ -185,18 +181,16 @@ function updateElement(response, pin, elementId) {
 
   if (state === 1) {
     x.checked = true;
-    x.backgroundColor = "red";
-    x.color = "red";
   } else {
     x.checked = false;
   }
   return state;
 }
 
-
-
-
-
+// Delay/Sleep Function
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 /*
 
