@@ -4,7 +4,7 @@ var message = document.getElementById("message");
 var pins = ["V1", "V2", "V3", "V4"];
 var previousResponse;
 var previousstate;
-var timeout = 13000
+var timeout = 10000
 var trgr = true;
 /*
 var v1state;
@@ -24,7 +24,7 @@ function refreshTime() {
 setInterval(refreshTime, 1000);
 
 // Function that auto runs after specfic interval of time
-function handlePageReload() {
+async function handlePageReload() {
   //if (!isResponseEqual(navigator.onLine, previousResponse)) {
     if (navigator.onLine){
       if (!trgr){
@@ -37,42 +37,39 @@ function handlePageReload() {
       document.getElementById("switch3").disabled = false;
       document.getElementById("switch4").disabled = false;
 
-      //When light comes back bring back old state
-      if (trgr===true){
-        //console.log("Trigger called======================================");
+      //When light comes back, bring back old state
+      if (trgr === true) {
         message.innerHTML = "Restoring States..";
         message.style.color = "#d0eb34";
-        sleepAndContinue();
-        async function sleepAndContinue() {
-          await sleep(timeout);
-          var response =  trigger2();
-          trigger(response.V1,"V1");
-          trigger(response.V2,"V2");
-          trigger(response.V3,"V3");
-          trigger(response.V4,"V4");
-          trgr=false;
-          message.innerHTML = "Connected";
-          message.style.color = "#21ed58";
-        }
+        await sleep(timeout);
+        var response = await trigger2();
+        trigger(response.V1, "V1");
+        trigger(response.V2, "V2");
+        trigger(response.V3, "V3");
+        trigger(response.V4, "V4");
+        trgr = false;
+        message.innerHTML = "Connected";
+        message.style.color = "#21ed58";
       }
+
       
-      //Applies Any Changes Done on the States
-      response = trigger2();
+      // Applies any changes done on the states
+      var response = await trigger2();
       if (!isResponseEqual(response, previousResponse)) {
         for (var i = 0; i < pins.length; i++) {
           var pin = pins[i];
           switch (pin) {
             case "V1":
-              updateElement(response, pin, "switch1");
+              await updateElement(response, pin, "switch1");
               break;
             case "V2":
-              updateElement(response, pin, "switch2");
+              await updateElement(response, pin, "switch2");
               break;
             case "V3":
-              updateElement(response, pin, "switch3");
+              await updateElement(response, pin, "switch3");
               break;
             case "V4":
-              updateElement(response, pin, "switch4");
+              await updateElement(response, pin, "switch4");
               break;
             default:
               return;
@@ -97,20 +94,16 @@ function handlePageReload() {
 }  
 setInterval(handlePageReload, 700);
 
-function trigger(value, pin) {
-  fetch(`https://blr1.blynk.cloud/external/api/update?token=g2-VR83SfRVfmPIMoTQLX0nCrWbJQ9kA&${pin}=${value}`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      //console.log('API call successful');
-    })
-    .catch(error => {
-      // Error handling: Log or handle the error as needed
-      console.error('Error:', error);
-    });
+async function trigger(value, pin) {
+  try {
+    await fetch(`https://blr1.blynk.cloud/external/api/update?token=g2-VR83SfRVfmPIMoTQLX0nCrWbJQ9kA&${pin}=${value}`);
+    //console.log('API call successful');
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
+/*
 function trigger2() {
   var xhReq = new XMLHttpRequest();
   xhReq.open("GET", `https://blr1.blynk.cloud/external/api/get?token=g2-VR83SfRVfmPIMoTQLX0nCrWbJQ9kA&V1&V2&V3&V4`, false);
@@ -121,6 +114,21 @@ function trigger2() {
     return jsonResponse;
   }
 }
+*/
+
+async function trigger2() {
+  try {
+    var response = await fetch('https://blr1.blynk.cloud/external/api/get?token=g2-VR83SfRVfmPIMoTQLX0nCrWbJQ9kA&V1&V2&V3&V4');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    var jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
 
 
 function isResponseEqual(response1, response2) {
@@ -175,7 +183,7 @@ function getpin(switchName){
 //window.addEventListener("beforeunload", handlePageReload);
 
 
-function updateElement(response, pin, elementId) {
+async function updateElement(response, pin, elementId) {
   var x = document.getElementById(elementId);
   var state = response[pin] === 1 ? 1 : 0;
 
@@ -186,6 +194,7 @@ function updateElement(response, pin, elementId) {
   }
   return state;
 }
+
 
 // Delay/Sleep Function
 function sleep(ms) {
