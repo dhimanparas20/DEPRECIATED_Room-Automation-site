@@ -4,7 +4,8 @@ from flask import request, redirect, make_response, Flask , render_template ,url
 import requests
 
 # System Variables
-USERNAME = "admin"
+USERNAME = ["admin","Ken"]
+TOKEN = ["g2-VR83SfRVfmPIMoTQLX0nCrWbJQ9kA","I1mwrVRgLtqBQ8b5m3GZ9quXlh4J-B0b"]
 PASSWORD = "Mst@2069"
 APP_SECRET_KEY = "9H2g2M5iI0fwkQc"
 
@@ -13,7 +14,8 @@ system("clear")
 # Get Current Path
 cwd =getcwd()
 #Admin Details
-user = {"username": USERNAME, "password": PASSWORD}
+user1 = {"username": USERNAME[0], "password": PASSWORD}
+user2 = {"username": USERNAME[1], "password": PASSWORD}
 
 # App Declarartion
 app = Flask(__name__)
@@ -33,7 +35,7 @@ class login(Resource):
   def post(self):
     username = request.form.get('uname')
     password = request.form.get('psw')     
-    if username == user['username'] and password == user['password']:  
+    if (username == user1['username'] and password == user1['password']) or (username == user2['username'] and password == user2['password']) :  
       session['user'] = username 
       return redirect('/home')
     return make_response(render_template('login.html',message="Invalid Credentials", uname=username))  
@@ -41,8 +43,10 @@ class login(Resource):
 # Home Dashboard
 class home(Resource):  
   def get(self):
-    if('user' in session and session['user'] == user['username']):
-      return make_response(render_template('home.html'))
+    if('user' in session and session['user'] == user1['username']):
+      return make_response(render_template('home.html',token=TOKEN[0],user=user1['username']))
+    elif ('user' in session and session['user'] == user2['username']):
+      return make_response(render_template('home.html',token=TOKEN[1],user=user2['username']))  
     return make_response(render_template('login.html'))  #if the user is not in the session
  
 #Logout
