@@ -17,21 +17,7 @@ font-family: Roboto, Arial, sans-serif;
 font-size: 16px;
 color: #666;
 }
-h1 {
-padding: 10px 0;
-font-size: 32px;
-font-weight: 300;
-text-align: center;
-}
-h2 {
-padding: 10px 0;
-font-size: 32px;
-font-weight: 300;
-text-align: center;
-}
-p {
-font-size: 12px;
-}
+
 hr {
 position: relative;
 top: 0px;
@@ -39,36 +25,6 @@ height: 3px;
 margin-bottom: 10px;
 color: black;
 opacity: 1;
-}
-.main-block {
-width: fit-content;
-min-height: 300px;
-padding: 10px 0;
-margin: auto;
-border-radius: 30px; 
-border: solid 3px #ccc;
-box-shadow: 10px 20px 5px rgba(0,0,0,.31); 
-background: transparent;
-backdrop-filter: blur(4px);
-}
-.btn-block {
-margin-top: 10px;
-text-align: center;
-}
-button {
-width: 20%;
-padding: 5px 0;
-margin: 10px auto 0;
-border-radius: 8px; 
-border: solid;
-border-color: black;
-background: #26a9e0; 
-font-size: 16px;
-font-weight: 500;
-color: white;
-}
-button:hover {
-background: #26a9e0;
 }
 
 .switch {
@@ -133,6 +89,7 @@ input:checked + .slider:before {
 }
 
 .switch-container {
+  align-items: center;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -145,6 +102,157 @@ input:checked + .slider:before {
   font-size: large;
   backdrop-filter: blur(10px);
   padding-right: 3px;
-
-  
 }
+ 
+
+  /* Up to 576px */
+@media (max-width: 575.98px) {
+  h1 {
+    padding: 5px 0;
+    font-size: 15px;
+    font-weight: 100;
+    text-align: center;
+    }
+    h2 {
+    padding: 4px 0;
+    font-size: 10px;
+    font-weight: 100;
+    text-align: center;
+    }
+    p {
+    font-size: 8px;
+    }
+    .switch-label {
+      font-size: 10px;
+    }  
+}
+
+/* 576px to 767px */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  h1 {
+    padding: 7px 0;
+    font-size: 20px;
+    font-weight: 150;
+    text-align: center;
+    }
+    h2 {
+    padding: 5px 0;
+    font-size: 15px;
+    font-weight: 150;
+    text-align: center;
+    }
+    p {
+    font-size: 10px;
+    }
+}
+
+/* 768px to 991px */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  h1 {
+    padding: 10px 0;
+    font-size: 32px;
+    font-weight: 300;
+    text-align: center;
+    }
+    h2 {
+    padding: 10px 0;
+    font-size: 32px;
+    font-weight: 300;
+    text-align: center;
+    }
+    p {
+    font-size: 12px;
+    }
+}
+
+/* 992px to 1199px */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  h1 {
+    padding: 15px 0;
+    font-size: 40px;
+    font-weight: 350;
+    text-align: center;
+    }
+    h2 {
+    padding: 15px 0;
+    font-size: 40px;
+    font-weight:  350;
+    text-align: center;
+    }
+    p {
+    font-size: 18px;
+    }
+}
+
+/* 1200px and larger */
+@media (min-width: 1200px) {
+  h1 {
+    padding: 20px 0;
+    font-size: 50px;
+    font-weight: 400;
+    text-align: center;
+    }
+    h2 {
+    padding: 20px 0;
+    font-size: 50px;
+    font-weight: 400;
+    text-align: center;
+    }
+    p {
+    font-size: 25px;
+    }
+}
+
+h4{
+  font-size: 2.5vw;
+    font-weight: 400;
+    text-align: center;
+}
+
+.logo-container {
+  width: 25%; /* Adjust this percentage as needed */
+  max-width: 200px; /* Optionally set a maximum width for the container */
+  margin-right: 10px; /* Add some spacing between the image and text */
+}
+
+.btn-block {
+  margin-top: 10px;
+  text-align: center;
+  }
+  button{
+  width: fit-content;
+  padding: 1.5vh 0.7vw;
+  margin: 2vh auto 0;
+  border-radius: 1vw; 
+  border: solid;
+  border-color: rgb(27, 123, 225);
+  background: #26cde0; 
+  font-size: 2vw;
+  font-weight: 100;
+  color: white;
+  }
+  button:hover {
+  background: red;
+  }
+
+  .main-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 55vw;
+  min-height: 40vh;
+  padding: 10px 0;
+  margin: auto;
+  border-radius: 30px; 
+  border: solid 3px #ccc;
+  box-shadow: 10px 20px 5px rgba(0,0,0,.31); 
+  background: transparent;
+  backdrop-filter: blur(4px);
+  }
+
+  .switch-label {
+    font-size: 2vw;
+    font-weight: 200;
+    text-align: center;
+  } 
