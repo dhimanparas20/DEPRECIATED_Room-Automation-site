@@ -9,11 +9,20 @@
     <div id="user-container" data-user="{{ user }}"></div>
 
     <div class="main-block">
-      <h1 style="color: whitesmoke;"><img src="/static/logo.jpeg" width=100 height=100 style="border-radius: 10px;"><b><mark style="background: black; color: yellow;"> MST Automations</mark></b></h1>
+      <h1 style="color: whitesmoke; display: flex; align-items: center;">
+        <div class="logo-container">
+          <img src="/static/logo.jpeg" alt="Logo" style="border-radius: 10px; width: 100%;">
+        </div>
+        <span style="background: rgb(121, 204, 219); color: yellow; padding: 5px;">MST Automations</span>
+      </h1>
+      
+      
 
       <h2 style="color: whitesmoke;"><b><span id="time" > </span></b></h2>
-      <center><h4 style="color: whitesmoke;"><b>Status:</b><span id="message" style="color: greenyellow;"></span></h4></center>
       <center>
+        <h4 style="color: whitesmoke;"><b>Status:</b><span id="message" style="color: greenyellow;"></span></h4></center>
+      <center>
+
   <div class="switch-container">
     <label for="switch1" class="switch-label">Light</label>
     <label class="switch">
@@ -39,10 +48,11 @@
       <span class="slider round"></span>
     </label>
   </div>
-
+</center> 
   <script src="/static/js/base.js"></script>
 
-  </center> 
-  <a href="/logout">LOGOUT</a>
+  
+  <a href="/logout"><button type="button">Logout</button>
+  </a>
   </div> 
 {%endblock%}
