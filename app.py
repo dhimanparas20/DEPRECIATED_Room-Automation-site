@@ -8,6 +8,12 @@ USERNAME = ["admin","Ken"]
 TOKEN = ["g2-VR83SfRVfmPIMoTQLX0nCrWbJQ9kA","I1mwrVRgLtqBQ8b5m3GZ9quXlh4J-B0b"]
 PASSWORD = "Mst@2069"
 APP_SECRET_KEY = "9H2g2M5iI0fwkQc"
+PIN1 = ["Light","E"]
+PIN2 = ["Fan","E"]
+PIN3 = ["Speaker","D"]
+PIN4 = ["LAMP","D"]
+pinConfig = {'PIN1':PIN1[0],'PIN2':PIN2[0],'PIN3':PIN3[0],'PIN4':PIN4[0]}
+pinStats = {'PIN1':PIN1[1],'PIN2':PIN2[1],'PIN3':PIN3[1],'PIN4':PIN4[1]}
 
 #Clear the terminal output
 system("clear")
@@ -44,9 +50,9 @@ class login(Resource):
 class home(Resource):  
   def get(self):
     if('user' in session and session['user'] == user1['username']):
-      return make_response(render_template('home.html',token=TOKEN[0],user=user1['username']))
+      return make_response(render_template('home.html',token=TOKEN[0],user=user1['username'],pinConfig=pinConfig,pinStats=pinStats))
     elif ('user' in session and session['user'] == user2['username']):
-      return make_response(render_template('home.html',token=TOKEN[1],user=user2['username']))  
+      return make_response(render_template('home.html',token=TOKEN[1],user=user2['username'],pinConfig=pinConfig,pinStats=pinStats))  
     return make_response(render_template('login.html'))  #if the user is not in the session
  
 #Logout
