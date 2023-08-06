@@ -4,15 +4,25 @@ var message = document.getElementById("message");
 var pins = ["V1", "V2", "V3", "V4"];
 var previousResponse;
 var previousstate;
-var timeout = 2000
+var timeout = 10000
 var trgr = true;
 
 // Retrieve the token and user value from the data attribute
 var token_element = document.getElementById('token-container');
 var user_element = document.getElementById('user-container');
+//var pinStats_element = document.getElementById('pinStats-container');
+
 var token = token_element.dataset.token;
 var user = user_element.dataset.user;
-//console.log(token,user);
+//var pinStats = pinStats_element.dataset.pinstats;
+//console.log(pinStats);
+
+
+//var stats_element = document.getElementById('stats-container');
+//var stats = JSON.parse(stats_element.dataset.status);
+
+//console.log(stats.PIN1); // Output: "E"
+
 
 `use strict`;
 //Displays Time
