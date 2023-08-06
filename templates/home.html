@@ -7,6 +7,7 @@
     <!-- Set the data attribute to store the token value -->
     <div id="token-container" data-token="{{ token }}"></div>
     <div id="user-container" data-user="{{ user }}"></div>
+    <div id="pinStats-container" data-pinstats="{{ pinStats }}"></div>
 
     <div class="main-block">
       <h1 style="color: whitesmoke; display: flex; align-items: center;">
@@ -15,8 +16,6 @@
         </div>
         <span style="background: rgb(121, 204, 219); color: yellow; padding: 5px;">MST Automations</span>
       </h1>
-      
-      
 
       <h2 style="color: whitesmoke;"><b><span id="time" > </span></b></h2>
       <center>
@@ -24,25 +23,25 @@
       <center>
 
   <div class="switch-container">
-    <label for="switch1" class="switch-label">Light</label>
+    <label for="switch1" class="switch-label">{{ pinConfig.PIN1 }}</label>
     <label class="switch">
       <input id="switch1" type="checkbox">
       <span class="slider round"></span>
     </label>
 
-    <label for="switch2" class="switch-label">Speaker</label>
+    <label for="switch2" class="switch-label">{{ pinConfig.PIN2 }}</label>
     <label class="switch">
       <input id="switch2" type="checkbox">
       <span class="slider round"></span>
     </label>
 
-    <label for="switch3" class="switch-label">Fan</label>
+    <label for="switch3" class="switch-label">{{ pinConfig.PIN3 }}</label>
     <label class="switch">
       <input id="switch3" type="checkbox">
       <span class="slider round"></span>
     </label>
 
-    <label for="switch4" class="switch-label">Lamp</label>
+    <label for="switch4" class="switch-label">{{ pinConfig.PIN4 }}</label>
     <label class="switch">
       <input id="switch4" type="checkbox">
       <span class="slider round"></span>
