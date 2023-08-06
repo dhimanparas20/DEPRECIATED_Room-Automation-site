@@ -4,7 +4,7 @@ var message = document.getElementById("message");
 var pins = ["V1", "V2", "V3", "V4"];
 var previousResponse;
 var previousstate;
-var timeout = 10000
+var timeout = 2000
 var trgr = true;
 
 // Retrieve the token and user value from the data attribute
