@@ -49,7 +49,7 @@ class home(Resource):
   def get(self):
     #print(pinConfig_json,pinStats_json)
     if('user' in session and session['user'] == user1['username']):
-      return make_response(render_template('home.html',data=data["user"][1]))
+      return make_response(render_template('home.html',data=data["user"][0]))
     elif ('user' in session and session['user'] == user2['username']):
       return make_response(render_template('home.html',data=data["user"][1]))  
     return make_response(render_template('login.html'))  #if the user is not in the session
