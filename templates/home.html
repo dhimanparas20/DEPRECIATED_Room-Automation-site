@@ -1,13 +1,12 @@
 {%extends "base.html" %}
-
 {%block title%}Home{%endblock%}
-{%block icon%}href="/static/engineering.png"{%endblock%}
 
 {%block body%} 
     <!-- Set the data attribute to store the token value -->
-    <div id="token-container" data-token="{{ token }}"></div>
-    <div id="user-container" data-user="{{ user }}"></div>
-    <div id="pinStats-container" data-pinstats="{{ pinStats }}"></div>
+    <!-- <div id="data-container" data-data="{{ data }}"></div> -->
+    <script>
+      var jsonData = {{ data | tojson }};
+  </script>
 
     <div class="main-block">
       <h1 style="color: whitesmoke; display: flex; align-items: center;">
@@ -23,25 +22,25 @@
       <center>
 
   <div class="switch-container">
-    <label for="switch1" class="switch-label">{{ pinConfig.PIN1 }}</label>
+    <label for="switch1" class="switch-label">{{ data["device"][0]["name"] }}</label>
     <label class="switch">
       <input id="switch1" type="checkbox">
       <span class="slider round"></span>
     </label>
 
-    <label for="switch2" class="switch-label">{{ pinConfig.PIN2 }}</label>
+    <label for="switch2" class="switch-label">{{ data["device"][1]["name"] }}</label>
     <label class="switch">
       <input id="switch2" type="checkbox">
       <span class="slider round"></span>
     </label>
 
-    <label for="switch3" class="switch-label">{{ pinConfig.PIN3 }}</label>
+    <label for="switch3" class="switch-label">{{ data["device"][2]["name"] }}</label>
     <label class="switch">
       <input id="switch3" type="checkbox">
       <span class="slider round"></span>
     </label>
 
-    <label for="switch4" class="switch-label">{{ pinConfig.PIN4 }}</label>
+    <label for="switch4" class="switch-label">{{ data["device"][3]["name"] }}</label>
     <label class="switch">
       <input id="switch4" type="checkbox">
       <span class="slider round"></span>
@@ -49,8 +48,6 @@
   </div>
 </center> 
   <script src="/static/js/base.js"></script>
-
-  
   <a href="/logout"><button type="button">Logout</button>
   </a>
   </div> 

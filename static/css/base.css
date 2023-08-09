@@ -1,5 +1,5 @@
 body {
-  background-image: url('/static/wall1.jpg');
+  /*background-image: url('/static/wall1.jpg');  */
   background-position: center;
   background-size: cover;
   }
@@ -49,8 +49,8 @@ opacity: 1;
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: none; /* Disable transitions for the slider */
+  transition: none; /* Disable transitions for the slider */
 }
 
 .slider:before {
@@ -100,7 +100,7 @@ input:checked + .slider:before {
   margin-bottom: 5px;
   color: whitesmoke;
   font-size: large;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(1px);
   padding-right: 3px;
 }
  

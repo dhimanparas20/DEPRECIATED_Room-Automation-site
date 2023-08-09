@@ -4,25 +4,30 @@ var message = document.getElementById("message");
 var pins = ["V1", "V2", "V3", "V4"];
 var previousResponse;
 var previousstate;
-var timeout = 2000
 var trgr = true;
+let  token = jsonData["token"];
+let user = jsonData["username"];
+let timeout = jsonData["restoreTime"];
+var backgroundImageUrl = "url(" + jsonData["wallUrl"] + ")";
 
-// Retrieve the token and user value from the data attribute
-var token_element = document.getElementById('token-container');
-var user_element = document.getElementById('user-container');
-//var pinStats_element = document.getElementById('pinStats-container');
+// Changes userspecified Walls
+var body = document.body;
+body.style.backgroundImage = backgroundImageUrl;
 
-var token = token_element.dataset.token;
-var user = user_element.dataset.user;
-//var pinStats = pinStats_element.dataset.pinstats;
-//console.log(pinStats);
-
-
-//var stats_element = document.getElementById('stats-container');
-//var stats = JSON.parse(stats_element.dataset.status);
-
-//console.log(stats.PIN1); // Output: "E"
-
+//Disables the Undefined Buttons
+for (var i = 0; i < 4; i++) {
+  var pin = "PIN" + (i + 1);
+  if (jsonData["device"][i]["state"] === "D") {
+    var switchInput = document.getElementById("switch" + (i + 1));
+    var switchLabel = document.querySelector('label[for="switch' + (i + 1) + '"]');
+    var sliderSpan = switchInput.nextElementSibling; // Assuming the slider is a sibling of the input
+    switchInput.disabled = true; // Disable the slider input
+    sliderSpan.style.pointerEvents = "none"; // Disable pointer events on the slider span
+    sliderSpan.style.backgroundColor = "#ccc"; // Set a disabled background color
+    sliderSpan.style.opacity = "0.5"; // Reduce opacity to indicate it's disabled
+    switchLabel.textContent = "Disabled"; // Update the label text
+  }
+}
 
 `use strict`;
 //Displays Time
@@ -89,8 +94,6 @@ async function handlePageReload() {
       }
     }
     else if (!navigator.onLine){
-      //console.log("Offline ");
-      //console.log(v1state,v2state,v3state,v4state);
       trgr=true;
       message.innerHTML = "Disonnected";
       message.style.color = "red";
@@ -99,10 +102,8 @@ async function handlePageReload() {
       document.getElementById("switch3").disabled = true;
       document.getElementById("switch4").disabled = true;
     }
-   // previousResponse = navigator.onLine;
-  //}
 }
-setInterval(handlePageReload, 700);
+setInterval(handlePageReload, 800);
 
 async function trigger(value, pin) {
   try {
@@ -125,8 +126,6 @@ async function trigger2() {
     console.error('Error:', error);
   }
 }
-
-
 
 function isResponseEqual(response1, response2) {
   // Return true if responses are equal, false otherwise
