@@ -8,8 +8,8 @@
       "wallUrl": "/static/wall.jpg",
       "device": [
         {"name": "Light", "pin": "PIN1", "state": "A"},
-        {"name": "Fan", "pin": "PIN2", "state": "A"},
-        {"name": "Speaker", "pin": "PIN3", "state": "A"},
+        {"name": "Speaker", "pin": "PIN2", "state": "A"},
+        {"name": "Fan", "pin": "PIN3", "state": "A"},
         {"name": "Lamp", "pin": "PIN4", "state": "A"}
       ]
     },
