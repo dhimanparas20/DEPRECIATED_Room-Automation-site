@@ -4,7 +4,7 @@
       "id": 0,
       "username": "admin",
       "token": "g2-VR83SfRVfmPIMoTQLX0nCrWbJQ9kA",
-      "restoreTime":8000,
+      "restoreTime":5000,
       "wallUrl": "/static/wall.jpg",
       "device": [
         {"name": "Light", "pin": "PIN1", "state": "A"},

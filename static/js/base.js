@@ -42,7 +42,7 @@ setInterval(refreshTime, 1000);
 // Function that auto runs after specfic interval of time
 async function handlePageReload() {
   //if (!isResponseEqual(navigator.onLine, previousResponse)) {
-    if (navigator.onLine){
+    if (navigator.onLine || isConnected()==true){
       if (!trgr){
         message.innerHTML = "Connected"+" ("+user+")";
         message.style.color = "#21ed58";
@@ -93,7 +93,7 @@ async function handlePageReload() {
         previousResponse = response; // Update previous response
       }
     }
-    else if (!navigator.onLine){
+    else if (!navigator.onLine || isConnected()==false){
       trgr=true;
       message.innerHTML = "Disonnected";
       message.style.color = "red";
@@ -103,12 +103,26 @@ async function handlePageReload() {
       document.getElementById("switch4").disabled = true;
     }
 }
-setInterval(handlePageReload, 800);
+setInterval(handlePageReload, 600);
 
 async function trigger(value, pin) {
   try {
     await fetch(`https://blr1.blynk.cloud/external/api/update?token=${token}&${pin}=${value}`);
     //console.log('API call successful');
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}  
+  
+async function isConnected() {
+  try {
+    var response = await fetch(`https://blr1.blynk.cloud/external/api/isHardwareConnected?token=${token}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    var connectionResponse = await response.json();
+    //console.log(connectionResponse);
+    return connectionResponse;
   } catch (error) {
     console.error('Error:', error);
   }
