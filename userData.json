@@ -4,7 +4,7 @@
       "id": 0,
       "username": "admin",
       "token": "g2-VR83SfRVfmPIMoTQLX0nCrWbJQ9kA",
-      "restoreTime":5000,
+      "restoreTime":6000,
       "wallUrl": "/static/wall.jpg",
       "device": [
         {"name": "Light", "pin": "PIN1", "state": "A"},
@@ -17,7 +17,7 @@
       "id": 1,
       "username": "ken",
       "token": "I1mwrVRgLtqBQ8b5m3GZ9quXlh4J-B0b",
-      "restoreTime":3000,
+      "restoreTime":6000,
       "wallUrl": "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
       "device": [
         {"name": "Light", "pin": "PIN1", "state": "A"},
