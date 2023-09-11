@@ -9,6 +9,7 @@ let  token = jsonData["token"];
 let user = jsonData["username"];
 let timeout = jsonData["restoreTime"];
 var backgroundImageUrl = "url(" + jsonData["wallUrl"] + ")";
+var refreshtimeout = 5000;
 
 // Changes userspecified Walls
 var body = document.body;
@@ -103,7 +104,7 @@ async function handlePageReload() {
       document.getElementById("switch4").disabled = true;
     }
 }
-setInterval(handlePageReload, 600);
+setInterval(handlePageReload, refreshtimeout);
 
 async function trigger(value, pin) {
   try {
