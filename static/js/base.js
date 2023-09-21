@@ -94,7 +94,7 @@ async function handlePageReload() {
         previousResponse = response; // Update previous response
       }
     }
-    else if (!navigator.onLine || isConnected()==false){
+    else if (!navigator.onLine && isConnected()==false){
       trgr=true;
       message.innerHTML = "Disonnected";
       message.style.color = "red";
