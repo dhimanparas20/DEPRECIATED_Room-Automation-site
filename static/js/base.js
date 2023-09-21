@@ -42,8 +42,9 @@ setInterval(refreshTime, 1000);
 
 // Function that auto runs after specfic interval of time
 async function handlePageReload() {
+  console.log(isConnected());
   //if (!isResponseEqual(navigator.onLine, previousResponse)) {
-    if (navigator.onLine && isConnected()===true){
+    if (navigator.onLine){
       if (!trgr){
         message.innerHTML = "Connected"+" ("+user+")";
         message.style.color = "#21ed58";
