@@ -10,6 +10,7 @@ let user = jsonData["username"];
 let timeout = jsonData["restoreTime"];
 var backgroundImageUrl = "url(" + jsonData["wallUrl"] + ")";
 var refreshtimeout = 5000;
+var isOnine;
 
 // Changes userspecified Walls
 var body = document.body;
@@ -42,62 +43,73 @@ setInterval(refreshTime, 1000);
 
 // Function that auto runs after specfic interval of time
 async function handlePageReload() {
-  console.log(isConnected());
   //if (!isResponseEqual(navigator.onLine, previousResponse)) {
     if (navigator.onLine){
-      if (!trgr){
-        message.innerHTML = "Connected"+" ("+user+")";
-        message.style.color = "#21ed58";
-        }
-
-      document.getElementById("switch1").disabled = false;
-      document.getElementById("switch2").disabled = false;
-      document.getElementById("switch3").disabled = false;
-      document.getElementById("switch4").disabled = false;
-
-      //When light comes back, bring back old state
-      if (trgr === true) {
-        message.innerHTML = "Restoring States..";
-        message.style.color = "#d0eb34";
-        await sleep(timeout);
-        var response = await trigger2();
-        trigger(response.V1, "V1");
-        trigger(response.V2, "V2");
-        trigger(response.V3, "V3");
-        trigger(response.V4, "V4");
-        trgr = false;
-        message.innerHTML = "Connected"+" ("+user+")";
-        message.style.color = "#21ed58";
-      }
-
-      // Applies any changes done on the states
-      var response = await trigger2();
-      if (!isResponseEqual(response, previousResponse)) {
-        for (var i = 0; i < pins.length; i++) {
-          var pin = pins[i];
-          switch (pin) {
-            case "V1":
-              await updateElement(response, pin, "switch1");
-              break;
-            case "V2":
-              await updateElement(response, pin, "switch2");
-              break;
-            case "V3":
-              await updateElement(response, pin, "switch3");
-              break;
-            case "V4":
-              await updateElement(response, pin, "switch4");
-              break;
-            default:
-              return;
+      isConnected();
+      if(isOnine){
+        if (!trgr){
+          message.innerHTML = "Connected"+" ("+user+")";
+          message.style.color = "#21ed58";
           }
+
+        document.getElementById("switch1").disabled = false;
+        document.getElementById("switch2").disabled = false;
+        document.getElementById("switch3").disabled = false;
+        document.getElementById("switch4").disabled = false;
+
+        //When light comes back, bring back old state
+        if (trgr === true) {
+          message.innerHTML = "Restoring States..";
+          message.style.color = "#d0eb34";
+          await sleep(timeout);
+          var response = await trigger2();
+          trigger(response.V1, "V1");
+          trigger(response.V2, "V2");
+          trigger(response.V3, "V3");
+          trigger(response.V4, "V4");
+          trgr = false;
+          message.innerHTML = "Connected"+" ("+user+")";
+          message.style.color = "#21ed58";
         }
-        previousResponse = response; // Update previous response
+
+        // Applies any changes done on the states
+        var response = await trigger2();
+        if (!isResponseEqual(response, previousResponse)) {
+          for (var i = 0; i < pins.length; i++) {
+            var pin = pins[i];
+            switch (pin) {
+              case "V1":
+                await updateElement(response, pin, "switch1");
+                break;
+              case "V2":
+                await updateElement(response, pin, "switch2");
+                break;
+              case "V3":
+                await updateElement(response, pin, "switch3");
+                break;
+              case "V4":
+                await updateElement(response, pin, "switch4");
+                break;
+              default:
+                return;
+            }
+          }
+          previousResponse = response; // Update previous response
+        }
+      }else{
+        trgr=true;
+        message.innerHTML = "Board OFFLINE";
+        message.style.color = "orange";
+        document.getElementById("switch1").disabled = true;
+        document.getElementById("switch2").disabled = true;
+        document.getElementById("switch3").disabled = true;
+        document.getElementById("switch4").disabled = true;
       }
     }
-    else if (!navigator.onLine || isConnected()===false){
+
+    else if (!navigator.onLine){
       trgr=true;
-      message.innerHTML = "OFFLINE";
+      message.innerHTML = "No Internet";
       message.style.color = "red";
       document.getElementById("switch1").disabled = true;
       document.getElementById("switch2").disabled = true;
@@ -122,9 +134,9 @@ async function isConnected() {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    var connectionResponse = await response.json();
-    //console.log(connectionResponse);
-    return connectionResponse;
+    var jsonResponse = await response.json();
+    //console.log(jsonResponse)
+    isOnine =  jsonResponse;
   } catch (error) {
     console.error('Error:', error);
   }
