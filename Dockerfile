@@ -11,7 +11,8 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port Gunicorn will listen on
-EXPOSE 8000
+EXPOSE 5000
 
 # Define the command to run your application using Gunicorn
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
+#CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
