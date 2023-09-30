@@ -9,7 +9,7 @@ let  token = jsonData["token"];
 let user = jsonData["username"];
 let timeout = jsonData["restoreTime"];
 var backgroundImageUrl = "url(" + jsonData["wallUrl"] + ")";
-var refreshtimeout = 5000;
+var refreshtimeout = 3000;
 var isOnine;
 
 // Changes userspecified Walls
