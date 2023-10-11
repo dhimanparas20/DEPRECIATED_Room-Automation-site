@@ -10,7 +10,7 @@ let user = jsonData["username"];
 let timeout = jsonData["restoreTime"];
 var backgroundImageUrl = "url(" + jsonData["wallUrl"] + ")";
 var refreshtimeout = 3000;
-var isOnine;
+var isOnine=true;
 
 // Changes userspecified Walls
 var body = document.body;
