@@ -8,7 +8,6 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port Gunicorn will listen on
