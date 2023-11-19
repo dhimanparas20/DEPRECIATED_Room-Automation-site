@@ -5,12 +5,14 @@ var pins = ["V1", "V2", "V3", "V4"];
 var previousResponse;
 var previousstate;
 var trgr = true;
-let  token = jsonData["token"];
-let user = jsonData["username"];
-let timeout = jsonData["restoreTime"];
-var backgroundImageUrl = "url(" + jsonData["wallUrl"] + ")";
-var refreshtimeout = 5000;
 var isOnine=true;
+let token = jsonData["token"];
+let user = jsonData["username"];
+let restoreState = globVar["restoreState"];  //want state restoration or not
+let timeout = globVar["restoreTimeWait"];    //wait before state restoration happends
+var refreshtimeout = globVar["updateInterval"];  // regualr update and bg cecks for changes
+var backgroundImageUrl = "url(" + globVar["wallUrl"] + ")";
+
 
 // Changes userspecified Walls
 var body = document.body;
@@ -28,18 +30,12 @@ for (var i = 0; i < 4; i++) {
     sliderSpan.style.backgroundColor = "#ccc"; // Set a disabled background color
     sliderSpan.style.opacity = "0.5"; // Reduce opacity to indicate it's disabled
     switchLabel.textContent = "Disabled"; // Update the label text
+    switchInput.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }, true);
   }
 }
-
-`use strict`;
-//Displays Time
-function refreshTime() {
-  const timeDisplay = document.getElementById("time");
-  const dateString = new Date().toLocaleString();
-  const formattedString = dateString.replace(", ", " - ");
-  timeDisplay.textContent = formattedString;
-}
-setInterval(refreshTime, 1000);
 
 // Function that auto runs after specfic interval of time
 async function handlePageReload() {
@@ -47,7 +43,7 @@ async function handlePageReload() {
     if (navigator.onLine){
       isConnected();
       if(isOnine){
-        if (!trgr){
+        if (!trgr || restoreState===false){
           message.innerHTML = "Connected"+" ("+user+")";
           message.style.color = "#21ed58";
           }
@@ -58,7 +54,7 @@ async function handlePageReload() {
         document.getElementById("switch4").disabled = false;
 
         //When light comes back, bring back old state
-        if (trgr === true) {
+        if (trgr === true && restoreState===true) {
           message.innerHTML = "Restoring States..";
           message.style.color = "#d0eb34";
           await sleep(timeout);
@@ -100,10 +96,12 @@ async function handlePageReload() {
         trgr=true;
         message.innerHTML = "Board OFFLINE";
         message.style.color = "orange";
+        /* Dont Disable Switches even when board is offline
         document.getElementById("switch1").disabled = true;
         document.getElementById("switch2").disabled = true;
         document.getElementById("switch3").disabled = true;
         document.getElementById("switch4").disabled = true;
+        */
       }
     }
 
@@ -223,3 +221,14 @@ async function updateElement(response, pin, elementId) {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+
+`use strict`;
+//Displays Time
+function refreshTime() {
+  const timeDisplay = document.getElementById("time");
+  const dateString = new Date().toLocaleString();
+  const formattedString = dateString.replace(", ", " - ");
+  timeDisplay.textContent = formattedString;
+}
+setInterval(refreshTime, 1000);

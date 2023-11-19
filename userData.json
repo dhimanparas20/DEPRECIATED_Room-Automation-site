@@ -1,28 +1,31 @@
-{
+{ "global":{
+      "restoreState":true,
+      "restoreTimeWait":100 ,
+      "updateInterval":2000,
+      "wallUrl": "/static/wall1.jpg" 
+    },
   "user": [
     {
       "id": 0,
       "username": "admin",
+      "password":"Mst@2069",
       "token": "g2-VR83SfRVfmPIMoTQLX0nCrWbJQ9kA",
-      "restoreTime":100,
-      "wallUrl": "/static/wall.jpg",
       "device": [
-        {"name": "Light", "pin": "PIN1", "state": "A"},
-        {"name": "Speaker", "pin": "PIN2", "state": "A"},
-        {"name": "Fan", "pin": "PIN3", "state": "A"},
-        {"name": "Lamp", "pin": "PIN4", "state": "A"}
+        {"name": "Light", "pin": "PIN1", "state": "E"},
+        {"name": "Speaker", "pin": "PIN2", "state": "E"},
+        {"name": "Fan", "pin": "PIN3", "state": "E"},
+        {"name": "Lamp", "pin": "PIN4", "state": "E"}
       ]
     },
     {
       "id": 1,
       "username": "ken",
+      "password":"Mst@2069",
       "token": "I1mwrVRgLtqBQ8b5m3GZ9quXlh4J-B0b",
-      "restoreTime":100,
-      "wallUrl": "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
       "device": [
-        {"name": "Light", "pin": "PIN1", "state": "A"},
-        {"name": "Speaker", "pin": "PIN2", "state": "D"},
-        {"name": "Fan", "pin": "PIN3", "state": "A"},
+        {"name": "Light", "pin": "PIN1", "state": "E"},
+        {"name": "Speaker", "pin": "PIN2", "state": "E"},
+        {"name": "Fan", "pin": "PIN3", "state": "E"},
         {"name": "Lamp", "pin": "PIN4", "state": "D"}
       ]
     }
