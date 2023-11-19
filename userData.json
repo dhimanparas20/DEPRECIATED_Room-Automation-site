@@ -1,7 +1,7 @@
 { "global":{
-      "restoreState":true,
+      "restoreState":false,
       "restoreTimeWait":100 ,
-      "updateInterval":2000,
+      "updateInterval":2500,
       "wallUrl": "/static/wall1.jpg" 
     },
   "user": [
