@@ -25,7 +25,7 @@
       "device": [
         {"name": "Light", "pin": "PIN1", "state": "E"},
         {"name": "Fan", "pin": "PIN2", "state": "E"},
-        {"name": "Speaker", "pin": "PIN3", "state": "E"},
+        {"name": "Speaker", "pin": "PIN3", "state": "D"},
         {"name": "Lamp", "pin": "PIN4", "state": "D"}
       ]
     }
