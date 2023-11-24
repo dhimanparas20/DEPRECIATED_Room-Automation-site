@@ -24,8 +24,8 @@
       "token": "I1mwrVRgLtqBQ8b5m3GZ9quXlh4J-B0b",
       "device": [
         {"name": "Light", "pin": "PIN1", "state": "E"},
-        {"name": "Speaker", "pin": "PIN2", "state": "E"},
-        {"name": "Fan", "pin": "PIN3", "state": "E"},
+        {"name": "Fan", "pin": "PIN2", "state": "E"},
+        {"name": "Speaker", "pin": "PIN3", "state": "E"},
         {"name": "Lamp", "pin": "PIN4", "state": "D"}
       ]
     }
